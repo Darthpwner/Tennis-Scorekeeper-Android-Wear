@@ -6,6 +6,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="matthewallenlinsoftware.tennisscorekeeperapp.MatchLengthActivity"
-    tools:deviceIds="wear">
+    tools:deviceIds="wear"
+    android:background="#000000">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of Sets:"
+            android:id="@+id/textView"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:gravity="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Best of 1"
+            android:id="@+id/button"
+            android:background="@null"
+            android:textColor="#ffffff" />
+
+
+    </RelativeLayout>
 
 </android.support.wearable.view.BoxInsetLayout>
+
