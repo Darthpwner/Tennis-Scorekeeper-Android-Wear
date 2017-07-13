@@ -1,8 +1,10 @@
 package matthewallenlinsoftware.tennisscorekeeperapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
 
 public class ScoresActivity extends Activity {
 
@@ -17,6 +19,19 @@ public class ScoresActivity extends Activity {
             System.out.println("match_length: " + match_length);
             System.out.println("ten_point_tiebreaker_format: " + ten_point_tiebreaker_format);
         }
+    }
+
+    // onClick Transitions
+    public void onClickResetButton(View view) {
+
+    }
+
+    public void onClickHomeButton(View view) {
+        // Starting a new intent
+        Intent nextScreen = new Intent(getApplicationContext(), MatchLengthActivity.class);
+
+        // Sending data to another Activity
+        startActivity(nextScreen);
     }
 
     @Override
