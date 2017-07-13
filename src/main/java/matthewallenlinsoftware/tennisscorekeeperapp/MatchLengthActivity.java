@@ -15,6 +15,8 @@ public class MatchLengthActivity extends WearableActivity {
         // Starting a new intent
         Intent nextScreen = new Intent(getApplicationContext(), TenPointTiebreakActivity.class);
 
+        nextScreen.putExtra("match_length", "best_of_1");
+
         // Sending data to another Activity
         startActivity(nextScreen);
     }
@@ -22,6 +24,8 @@ public class MatchLengthActivity extends WearableActivity {
     public void onClickBestOfThreeButton(View view) {
         // Starting a new intent
         Intent nextScreen = new Intent(getApplicationContext(), TenPointTiebreakActivity.class);
+
+        nextScreen.putExtra("match_length", "best_of_3");
 
         // Sending data to another Activity
         startActivity(nextScreen);
