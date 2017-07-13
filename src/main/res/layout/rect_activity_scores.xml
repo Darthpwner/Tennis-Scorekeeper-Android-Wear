@@ -11,7 +11,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="25dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/reset_home_linear_layout">
 
