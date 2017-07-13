@@ -2,6 +2,7 @@ package matthewallenlinsoftware.tennisscorekeeperapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
@@ -90,7 +91,62 @@ public class ScoresActivity extends Activity {
 
     // onClick Transitions
     public void onClickResetButton(View view) {
+        // Reset game score
+        player_1_game_score_text_view.setText("0");
+        player_2_game_score_text_view.setText("0");
 
+        player_1_points_won_this_game = 0;
+        player_2_points_won_this_game = 0;
+
+        // Reset set scores
+        player_1_set_1_score = 0;
+        player_1_set_1_score_text_view.setText("0");
+
+        player_2_set_1_score = 0;
+        player_2_set_1_score_text_view.setText("0");
+
+        player_1_set_2_score = 0;
+        player_1_set_2_score_text_view.setText("0");
+
+        player_2_set_2_score = 0;
+        player_2_set_2_score_text_view.setText("0");
+
+        player_1_set_3_score = 0;
+        player_1_set_3_score_text_view.setText("0");
+
+        player_2_set_3_score = 0;
+        player_2_set_3_score_text_view.setText("0");
+
+        current_set = 1;
+
+        player_serving = 0;
+
+        player_serving_to_start_tiebreak = -1;
+
+        player_won = -1;
+
+        player_1_game_score_string = "Love";
+        player_2_game_score_string = "Love";
+
+        player_1_text_view.setTextColor(Color.WHITE);
+        player_1_text_view.setTextColor(Color.WHITE);
+
+        if(player_serving == 0) {   //P1 (left side) always starts serving
+            player_1_serving_image_view.setVisibility(View.VISIBLE);
+            player_2_serving_image_view.setVisibility(View.INVISIBLE);
+        }
+
+        announcement_text_view.setVisibility(View.INVISIBLE);
+
+        if(ten_point_tiebreaker_format == "yes" && match_length == "best_of_1") {   //Best of 1 set and 10-point tiebreaker
+            is_tiebreak = true;
+        } else {    //Any other case of resetting
+            is_tiebreak = false;
+        }
+
+        //Allow the player to use increment buttons if they hit reset at the end of match
+        increment_player_1_image_button.setEnabled(true);
+        increment_player_2_image_button.setEnabled(true);
     }
 
     public void onClickHomeButton(View view) {
