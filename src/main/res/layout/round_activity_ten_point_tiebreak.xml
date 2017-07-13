@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10-pt tiebreak for final set?"
-        android:id="@+id/textView2"
+        android:id="@+id/ten_point_tiebreak_text_view"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -18,29 +18,31 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Yes"
-        android:id="@+id/button3"
+        android:id="@+id/yes_button"
         android:layout_gravity="center_horizontal"
         android:background="#333"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/ten_point_tiebreak_text_view"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickYesButton" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="75dp"
-        android:id="@+id/imageView2"
+        android:id="@+id/tennis_court_image_view"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/tennis_court"
-        android:layout_below="@+id/button3"
+        android:layout_below="@+id/yes_button"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="No"
-        android:id="@+id/button4"
+        android:id="@+id/no_button"
         android:layout_gravity="center_horizontal"
         android:background="#333"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/tennis_court_image_view"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickNoButton" />
 
 </RelativeLayout>
