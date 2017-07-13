@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="Best of 1"
             android:id="@+id/best_of_one_button"
-            android:background="@null"
+            android:background="#333"
             android:textColor="#ffffff"
             android:gravity="center"
             android:textAlignment="gravity"
@@ -51,12 +51,12 @@
             android:layout_height="wrap_content"
             android:text="Best of 3"
             android:id="@+id/best_of_three_button"
-            android:background="@null"
             android:textColor="#ffffff"
             android:gravity="center"
             android:layout_below="@+id/tennis_court_image_view"
             android:layout_centerHorizontal="true"
-            android:onClick="onClickBestOfThreeButton" />
+            android:onClick="onClickBestOfThreeButton"
+            android:background="#333" />
 
 
     </RelativeLayout>
