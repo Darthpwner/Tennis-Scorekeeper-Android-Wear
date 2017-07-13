@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -89,8 +88,48 @@ public class ScoresActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_scores);
+
+        grabTenPointTiebreakActivityData();
+
+        // Initialize widgets
+        // Set scores
+        player_1_set_1_score_text_view = (TextView) findViewById(R.id.player_1_set_1_score_text_view);
+        player_2_set_1_score_text_view = (TextView) findViewById(R.id.player_2_set_1_score_text_view);
+        comma_between_set_1_and_2_text_view = (TextView) findViewById(R.id.comma_between_set_1_and_2_text_view);
+
+        player_1_set_2_score_text_view = (TextView) findViewById(R.id.player_1_set_2_score_text_view);
+        set_2_dash_text_view = (TextView) findViewById(R.id.set_2_dash_text_view);
+        player_2_set_2_score_text_view = (TextView) findViewById(R.id.player_2_set_2_score_text_view);
+        comma_between_set_2_and_3_text_view = (TextView) findViewById(R.id.comma_between_set_2_and_3_text_view);
+
+        player_1_set_3_score_text_view = (TextView) findViewById(R.id.player_1_set_3_score_text_view);
+        set_3_dash_text_view = (TextView) findViewById(R.id.set_3_dash_text_view);
+        player_2_set_3_score_text_view = (TextView) findViewById(R.id.player_2_set_3_score_text_view);
+
+        // Game scores
+        player_1_serving_image_view = (ImageView) findViewById(R.id.player_1_serving_image_view);
+        player_1_game_score_text_view = (TextView) findViewById(R.id.player_1_game_score_text_view);
+        player_2_game_score_text_view = (TextView) findViewById(R.id.player_2_game_score_text_view);
+        player_2_serving_image_view = (ImageView) findViewById(R.id.player_2_serving_image_view);
+
+        // Increment scores
+        increment_player_1_image_button = (ImageButton) findViewById(R.id.increment_player_1_image_button);
+        player_1_text_view = (TextView) findViewById(R.id.player_1_text_view);
+        player_2_text_view = (TextView) findViewById(R.id.player_2_text_view);
+        increment_player_2_image_button = (ImageButton) findViewById(R.id.increment_player_2_image_button);
+
+        // Announcement
+        announcement_text_view = (TextView) findViewById(R.id.announcement_text_view);
+    }
+
     // onClick Transitions
     public void onClickResetButton(View view) {
+        System.out.println("player_1_game_score_text_view: " + player_1_game_score_text_view);
+
         // Reset game score
         player_1_game_score_text_view.setText("0");
         player_2_game_score_text_view.setText("0");
@@ -164,15 +203,5 @@ public class ScoresActivity extends Activity {
 
     public void onClickIncrementPlayerTwoScore(View view) {
         System.out.println("P2");
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scores);
-
-        grabTenPointTiebreakActivityData();
-
-        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
     }
 }
