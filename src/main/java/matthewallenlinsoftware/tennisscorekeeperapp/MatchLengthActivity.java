@@ -1,12 +1,31 @@
 package matthewallenlinsoftware.tennisscorekeeperapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.BoxInsetLayout;
+import android.view.View;
 
 public class MatchLengthActivity extends WearableActivity {
 
     private BoxInsetLayout mContainerView;
+
+    // onClick Transitions
+    public void onClickBestOfOneButton(View view) {
+        // Starting a new intent
+        Intent nextScreen = new Intent(getApplicationContext(), TenPointTiebreakActivity.class);
+
+        // Sending data to another Activity
+        startActivity(nextScreen);
+    }
+
+    public void onClickBestOfThreeButton(View view) {
+        // Starting a new intent
+        Intent nextScreen = new Intent(getApplicationContext(), TenPointTiebreakActivity.class);
+
+        // Sending data to another Activity
+        startActivity(nextScreen);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

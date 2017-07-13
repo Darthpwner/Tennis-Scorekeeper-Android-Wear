@@ -35,7 +35,8 @@
             android:gravity="center"
             android:textAlignment="gravity"
             android:layout_below="@+id/number_of_sets_text_view"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:onClick="onClickBestOfOneButton" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -54,7 +55,8 @@
             android:textColor="#ffffff"
             android:gravity="center"
             android:layout_below="@+id/tennis_court_image_view"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:onClick="onClickBestOfThreeButton" />
 
 
     </RelativeLayout>
