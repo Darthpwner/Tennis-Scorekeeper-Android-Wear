@@ -66,6 +66,15 @@ public class ScoresActivity extends Activity {
         startActivity(nextScreen);
     }
 
+    // onClick Actions
+    public void onClickIncrementPlayerOneScore(View view) {
+        System.out.println("P1");
+    }
+
+    public void onClickIncrementPlayerTwoScore(View view) {
+        System.out.println("P2");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

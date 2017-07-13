@@ -219,7 +219,9 @@
             android:id="@+id/increment_player_1_image_button"
             android:src="@drawable/increment_score"
             android:scaleType="fitXY"
-            android:background="@null" />
+            android:background="@null"
+            android:nestedScrollingEnabled="false"
+            android:onClick="onClickIncrementPlayerOneScore" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -245,7 +247,8 @@
             android:id="@+id/increment_player_2_image_button"
             android:src="@drawable/increment_score"
             android:scaleType="fitXY"
-            android:background="@null" />
+            android:background="@null"
+            android:onClick="onClickIncrementPlayerTwoScore" />
     </LinearLayout>
 
     <TextView
