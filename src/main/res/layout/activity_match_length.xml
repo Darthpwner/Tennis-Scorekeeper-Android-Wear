@@ -17,18 +17,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Number of Sets:"
-            android:id="@+id/textView"
+            android:id="@+id/number_of_sets_text_view"
             android:textSize="15sp"
             android:textColor="#ffffff"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Best of 1"
-            android:id="@+id/button"
+            android:id="@+id/best_of_one_button"
             android:background="@null"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:layout_below="@+id/number_of_sets_text_view"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:id="@+id/tennis_court_image_view"
+            android:src="@drawable/tennis_court"
+            android:layout_below="@id/best_of_one_button"
+            android:paddingTop="0dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Best of 3"
+            android:id="@+id/best_of_three_button"
+            android:background="@null"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:layout_below="@+id/tennis_court_image_view"
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>
