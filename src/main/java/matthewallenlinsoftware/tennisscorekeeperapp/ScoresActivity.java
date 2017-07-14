@@ -3,15 +3,22 @@ package matthewallenlinsoftware.tennisscorekeeperapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class ScoresActivity extends Activity {
+    // Speech to text
+    private TextToSpeech tts;
 
     // Data from previous Activities
     String match_length, ten_point_tiebreaker_format;
@@ -94,6 +101,16 @@ public class ScoresActivity extends Activity {
         }
     }
 
+    // Speech to text
+    // There’s a Build.VERSION check inside the method because tts.speak(param,param,param) is deprecated for API levels over 5.1
+    private void speak(String text) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        }else{
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,11 +152,44 @@ public class ScoresActivity extends Activity {
         // Announcement
         announcement_text_view = (TextView) findViewById(R.id.announcement_text_view);
 
+        // Text to speech setup
+        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                System.out.println("getApplicationContext(): " + getApplicationContext());
+                System.out.println("status: " + status);
+
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = tts.setLanguage(Locale.US);
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "This Language is not supported");
+                    }
+                    tts.setSpeechRate((float) 0.3);
+
+                    speak("Hello");
+
+                } else {
+                    Log.e("TTS", "Initilization Failed!");
+                }
+            }
+        });
+
         // Set up initial Activity
         initialize();
     }
 
+    // Stops the TextToSpeech service when a user closes the app
+    @Override
+    public void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
+    }
+
     public void initialize() {
+
         if(player_serving == 0) {   //P1 (left side) always starts serving
             player_1_serving_image_view.setVisibility(View.VISIBLE);
             player_2_serving_image_view.setVisibility(View.INVISIBLE);
@@ -176,6 +226,9 @@ public class ScoresActivity extends Activity {
     // onClick Actions
     public void onClickIncrementPlayerOneScore(View view) {
         System.out.println("P1");
+
+        String toSpeak = "P1";
+        speak(toSpeak);
 
         player_1_points_won_this_game += 1;
 
