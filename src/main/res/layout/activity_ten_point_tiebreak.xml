@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.WatchViewStub xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/watch_view_stub"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:rectLayout="@layout/rect_activity_ten_point_tiebreak"
-    app:roundLayout="@layout/round_activity_ten_point_tiebreak"
+    android:orientation="vertical"
     tools:context="matthewallenlinsoftware.tennisscorekeeperapp.TenPointTiebreakActivity"
-    tools:deviceIds="wear"></android.support.wearable.view.WatchViewStub>
+    tools:deviceIds="wear_square"
+    android:background="#000000">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10-pt tiebreak for final set?"
+        android:id="@+id/ten_point_tiebreak_text_view"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Yes"
+        android:id="@+id/yes_button"
+        android:layout_gravity="center_horizontal"
+        android:background="#333"
+        android:onClick="onClickYesButton" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:id="@+id/tennis_court_image_view"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/tennis_court" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="No"
+        android:id="@+id/no_button"
+        android:layout_gravity="center_horizontal"
+        android:background="#333"
+        android:onClick="onClickNoButton" />
+
+</LinearLayout>

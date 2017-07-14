@@ -3,7 +3,6 @@ package matthewallenlinsoftware.tennisscorekeeperapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
 
@@ -51,8 +50,5 @@ public class TenPointTiebreakActivity extends Activity {
         setContentView(R.layout.activity_ten_point_tiebreak);
 
         grabMatchLengthActivityData();
-
-        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
-
     }
 }
