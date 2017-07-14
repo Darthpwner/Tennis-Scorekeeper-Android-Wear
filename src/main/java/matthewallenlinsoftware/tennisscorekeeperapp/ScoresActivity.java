@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +50,10 @@ public class ScoresActivity extends Activity {
     int[] set_winners = {-1, -1, -1};   // Indices can be 1 or 2
 
     // Widget connections
+    // Reset/Home buttons
+    Button reset_button;
+    Button home_button;
+
     // Set scores
     TextView player_1_set_1_score_text_view;
     TextView player_2_set_1_score_text_view;
@@ -96,6 +102,10 @@ public class ScoresActivity extends Activity {
         grabTenPointTiebreakActivityData();
 
         // Initialize widgets
+        // Reset/Home buttons
+        reset_button = (Button) findViewById(R.id.reset_button);
+        home_button = (Button) findViewById(R.id.home_button);
+
         // Set scores
         player_1_set_1_score_text_view = (TextView) findViewById(R.id.player_1_set_1_score_text_view);
         player_2_set_1_score_text_view = (TextView) findViewById(R.id.player_2_set_1_score_text_view);
@@ -161,76 +171,6 @@ public class ScoresActivity extends Activity {
         //updateApplicationContext();
 
 //        print("Activated scores")
-    }
-
-    // onClick Transitions
-    public void onClickResetButton(View view) {
-        System.out.println("player_1_game_score_text_view: " + player_1_game_score_text_view);
-
-        // Reset game score
-        player_1_game_score_text_view.setText("0");
-        player_2_game_score_text_view.setText("0");
-
-        player_1_points_won_this_game = 0;
-        player_2_points_won_this_game = 0;
-
-        // Reset set scores
-        player_1_set_1_score = 0;
-        player_1_set_1_score_text_view.setText("0");
-
-        player_2_set_1_score = 0;
-        player_2_set_1_score_text_view.setText("0");
-
-        player_1_set_2_score = 0;
-        player_1_set_2_score_text_view.setText("0");
-
-        player_2_set_2_score = 0;
-        player_2_set_2_score_text_view.setText("0");
-
-        player_1_set_3_score = 0;
-        player_1_set_3_score_text_view.setText("0");
-
-        player_2_set_3_score = 0;
-        player_2_set_3_score_text_view.setText("0");
-
-        current_set = 1;
-
-        player_serving = 0;
-
-        player_serving_to_start_tiebreak = -1;
-
-        player_won = -1;
-
-        player_1_game_score_string = "Love";
-        player_2_game_score_string = "Love";
-
-        player_1_text_view.setTextColor(Color.WHITE);
-        player_2_text_view.setTextColor(Color.WHITE);
-
-        if(player_serving == 0) {   //P1 (left side) always starts serving
-            player_1_serving_image_view.setVisibility(View.VISIBLE);
-            player_2_serving_image_view.setVisibility(View.INVISIBLE);
-        }
-
-        announcement_text_view.setVisibility(View.INVISIBLE);
-
-        if(ten_point_tiebreaker_format.equals("yes") && match_length.equals("best_of_1")) {   //Best of 1 set and 10-point tiebreaker
-            is_tiebreak = true;
-        } else {    //Any other case of resetting
-            is_tiebreak = false;
-        }
-
-        //Allow the player to use increment buttons if they hit reset at the end of match
-        increment_player_1_image_button.setEnabled(true);
-        increment_player_2_image_button.setEnabled(true);
-    }
-
-    public void onClickHomeButton(View view) {
-        // Starting a new intent
-        Intent nextScreen = new Intent(getApplicationContext(), MatchLengthActivity.class);
-
-        // Sending data to another Activity
-        startActivity(nextScreen);
     }
 
     // onClick Actions
@@ -881,6 +821,129 @@ public class ScoresActivity extends Activity {
 
 //        print(player_1_points_won_this_game)
 //        print(player_2_points_won_this_game)
+    }
+
+    // onClick Transitions
+    public void onClickResetButton(View view) {
+        System.out.println("player_1_game_score_text_view: " + player_1_game_score_text_view);
+
+        // Reset game score
+        player_1_game_score_text_view.setText("0");
+        player_2_game_score_text_view.setText("0");
+
+        player_1_points_won_this_game = 0;
+        player_2_points_won_this_game = 0;
+
+        // Reset set scores
+        player_1_set_1_score = 0;
+        player_1_set_1_score_text_view.setText("0");
+
+        player_2_set_1_score = 0;
+        player_2_set_1_score_text_view.setText("0");
+
+        player_1_set_2_score = 0;
+        player_1_set_2_score_text_view.setText("0");
+
+        player_2_set_2_score = 0;
+        player_2_set_2_score_text_view.setText("0");
+
+        player_1_set_3_score = 0;
+        player_1_set_3_score_text_view.setText("0");
+
+        player_2_set_3_score = 0;
+        player_2_set_3_score_text_view.setText("0");
+
+        current_set = 1;
+
+        player_serving = 0;
+
+        player_serving_to_start_tiebreak = -1;
+
+        player_won = -1;
+
+        player_1_game_score_string = "Love";
+        player_2_game_score_string = "Love";
+
+        player_1_text_view.setTextColor(Color.WHITE);
+        player_2_text_view.setTextColor(Color.WHITE);
+
+        if(player_serving == 0) {   //P1 (left side) always starts serving
+            player_1_serving_image_view.setVisibility(View.VISIBLE);
+            player_2_serving_image_view.setVisibility(View.INVISIBLE);
+        }
+
+        announcement_text_view.setVisibility(View.INVISIBLE);
+
+        if(ten_point_tiebreaker_format.equals("yes") && match_length.equals("best_of_1")) {   //Best of 1 set and 10-point tiebreaker
+            is_tiebreak = true;
+        } else {    //Any other case of resetting
+            is_tiebreak = false;
+        }
+
+        //Allow the player to use increment buttons if they hit reset at the end of match
+        increment_player_1_image_button.setEnabled(true);
+        increment_player_2_image_button.setEnabled(true);
+    }
+
+    public void onClickHomeButton(View view) {
+        // Starting a new intent
+        Intent nextScreen = new Intent(getApplicationContext(), MatchLengthActivity.class);
+
+        // Sending data to another Activity
+        startActivity(nextScreen);
+    }
+
+    /* Delay a game score announcement */
+    public void delayGameScoreAnnouncement() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                announcement_text_view.setVisibility(View.INVISIBLE);
+
+                reset_button.setEnabled(true);
+                home_button.setEnabled(true);
+                increment_player_1_image_button.setEnabled(true);
+                increment_player_2_image_button.setEnabled(true);
+            }
+        }, 2000);   // 2 second delay
+    }
+
+    /* Delay a normal announcement */
+    public void delayAnnouncement() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                announcement_text_view.setVisibility(View.INVISIBLE);
+
+                reset_button.setEnabled(true);
+                home_button.setEnabled(true);
+                increment_player_1_image_button.setEnabled(true);
+                increment_player_2_image_button.setEnabled(true);
+            }
+        }, 5000);   // 5 second delay
+    }
+
+    /* Delay for the Game, Set, Match announcement */
+    public void delayGameSetMatch() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                reset_button.setEnabled(true);
+                home_button.setEnabled(true);
+            }
+        }, 3000);   // 2 second delay
+    }
+
+    /* Prevents selecting any of the buttons */
+    public void preventButtonSelection() {
+        // Prevent selection of buttons during the delay
+        reset_button.setEnabled(false);
+        home_button.setEnabled(false);
+        increment_player_1_image_button.setEnabled(false);
+        increment_player_2_image_button.setEnabled(false);
     }
 
     /* Alternate server each game */
