@@ -245,6 +245,7 @@
         android:text="Announcement"
         android:id="@+id/announcement_text_view"
         android:textSize="20sp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
 
 </LinearLayout>

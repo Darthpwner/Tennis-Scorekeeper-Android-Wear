@@ -1019,8 +1019,8 @@ public class ScoresActivity extends Activity {
 
 //        synth.speak(myUtterance)
 //
-//        preventButtonSelection()
-//        delayGameScoreAnnouncement()
+        preventButtonSelection();
+        delayGameScoreAnnouncement();
     }
 
     public void setScoreAnnouncement(int current_set, int player_1_set_score, int player_2_set_score) {
@@ -1034,8 +1034,8 @@ public class ScoresActivity extends Activity {
 
 //        synth.speak(myUtterance)
 //
-//        preventButtonSelection()
-//        delayAnnouncement()
+        preventButtonSelection();
+        delayAnnouncement();
     }
 
     public void matchScoreAnnouncement() {
@@ -1051,8 +1051,8 @@ public class ScoresActivity extends Activity {
 
 //        synth.speak(myUtterance)
 //
-//        preventButtonSelection()
-//        delayAnnouncement()
+        preventButtonSelection();
+        delayAnnouncement();
     }
 
     /* Umpire announcements */
@@ -1063,10 +1063,10 @@ public class ScoresActivity extends Activity {
 //        myUtterance = AVSpeechUtterance(string: "Game: \(player)")
 //        synth.speak(myUtterance)
 //
-//        preventButtonSelection()
-//
-//        // This line could possibly be deprecated. Need to test
-//        delayAnnouncement()
+        preventButtonSelection();
+
+        // This line could possibly be deprecated. Need to test
+        delayAnnouncement();
     }
 
     public void setAnnouncement(String player, String set_number) {
@@ -1076,8 +1076,8 @@ public class ScoresActivity extends Activity {
 //        myUtterance = AVSpeechUtterance(string: "Game and Set \(set_number): \(player)")
 //        synth.speak(myUtterance)
 //
-//        preventButtonSelection()
-//        delayAnnouncement()
+        preventButtonSelection();
+        delayAnnouncement();
     }
 
     public void gameSetMatchAnnouncement(String player) {
@@ -1120,8 +1120,8 @@ public class ScoresActivity extends Activity {
         player_1_serving_image_view.setVisibility(View.INVISIBLE);
         player_2_serving_image_view.setVisibility(View.INVISIBLE);
 
-//        preventButtonSelection()
-//        delayGameSetMatch()
+        preventButtonSelection();
+        delayGameSetMatch();
     }
 }
 
