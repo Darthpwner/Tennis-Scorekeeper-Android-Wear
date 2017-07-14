@@ -153,10 +153,10 @@ public class ScoresActivity extends Activity {
         announcement_text_view = (TextView) findViewById(R.id.announcement_text_view);
 
         // Text to speech setup
-        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                System.out.println("getApplicationContext(): " + getApplicationContext());
+                System.out.println("this: " + this);
                 System.out.println("status: " + status);
 
                 if (status == TextToSpeech.SUCCESS) {

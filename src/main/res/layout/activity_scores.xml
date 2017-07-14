@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="Reset"
             android:id="@+id/reset_button"
-            android:background="#ff0000"
+            android:background="@drawable/reset_button"
             android:onClick="onClickResetButton" />
 
         <Button
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Home"
             android:id="@+id/home_button"
-            android:background="#0026ff"
+            android:background="@drawable/home_button"
             android:onClick="onClickHomeButton" />
     </LinearLayout>
 
