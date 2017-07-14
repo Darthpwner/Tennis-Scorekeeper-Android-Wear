@@ -205,7 +205,7 @@ public class ScoresActivity extends Activity {
         player_2_game_score_string = "Love";
 
         player_1_text_view.setTextColor(Color.WHITE);
-        player_1_text_view.setTextColor(Color.WHITE);
+        player_2_text_view.setTextColor(Color.WHITE);
 
         if(player_serving == 0) {   //P1 (left side) always starts serving
             player_1_serving_image_view.setVisibility(View.VISIBLE);
