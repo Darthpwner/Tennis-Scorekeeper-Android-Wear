@@ -260,9 +260,264 @@ public class ScoresActivity extends Activity {
                         // Announce set score
                         setScoreAnnouncement(current_set, player_1_set_1_score, player_2_set_1_score);
                     }
+                } else if(current_set == 2) {
+                    player_1_set_2_score += 1;
+                    player_1_set_2_score_text_view.setText(Integer.toString(player_1_set_2_score));
+
+                    // Player 1 won Set 2
+                    if(player_1_set_2_score == 6 && player_2_set_2_score <= 4) {    //6-0, 6-1, 6-2, 6-3, 6-4
+
+                        current_set += 1;
+
+                        set_winners[1] = 1;
+
+                        if(set_winners[0] == set_winners[1]) {  //Player 1 wins the match
+                            gameSetMatchAnnouncement("P1");
+                        } else {
+                            // Announce "Set 2: P1"
+                            setAnnouncement("P1", "2");
+                            matchScoreAnnouncement();
+
+                            if(ten_point_tiebreaker_format == "yes") { //Start 10-point tiebreaker for the 3rd set
+                                is_tiebreak = true;
+                            }
+                        }
+
+
+                    } else if(player_1_set_2_score == 7 && player_2_set_2_score == 5) { //7-5
+
+                        current_set += 1;
+
+                        set_winners[1] = 1;
+
+                        if(set_winners[0] == set_winners[1]) {  //Player 1 wins the match
+                            gameSetMatchAnnouncement("P1");
+                        } else {
+                            // Announce "Set 2: P1"
+                            setAnnouncement("P1", "2");
+                            matchScoreAnnouncement();
+
+                            if(ten_point_tiebreaker_format == "yes") { //Start 10-point tiebreaker for the 3rd set
+                                is_tiebreak = true;
+                            }
+                        }
+                    } else if(player_1_set_2_score == 6 && player_2_set_2_score == 6) { //Enter tiebreak
+                        is_tiebreak = true;
+                        player_serving_to_start_tiebreak = player_serving;
+
+                        // Announce "Game: P1"
+                        gameAnnouncement("P1");
+
+                        // Announce set score
+                        setScoreAnnouncement(current_set, player_1_set_2_score, player_2_set_2_score);
+                    } else {    //Normal Game announcement
+                        // Announce "Game: P1"
+                        gameAnnouncement("P1");
+
+                        // Announce set score
+                        setScoreAnnouncement(current_set, player_1_set_2_score, player_2_set_2_score);
+                    }
+
+                } else {    //Set 3
+                    player_1_set_3_score += 1;
+                    player_1_set_3_score_text_view.setText(Integer.toString(player_1_set_3_score));
+
+                    // Player 1 won Set 3
+                    if(player_1_set_3_score == 6 && player_2_set_3_score <= 4) {    //6-0, 6-1, 6-2, 6-3, 6-4
+                        set_winners[2] = 1;
+
+                        gameSetMatchAnnouncement("P1");
+
+                        current_set += 1;
+                    } else if(player_1_set_3_score == 7 && player_2_set_3_score == 5) {  //7-5
+                        set_winners[2] = 1;
+
+                        gameSetMatchAnnouncement("P1");
+
+                        current_set += 1;
+                    } else if(player_1_set_3_score == 6 && player_2_set_3_score == 6) { //Enter tiebreak
+                        is_tiebreak = true;
+                        player_serving_to_start_tiebreak = player_serving;
+
+                        // Announce "Game: P1"
+                        gameAnnouncement("P1");
+
+                        // Announce set score
+                        setScoreAnnouncement(current_set, player_1_set_3_score, player_2_set_3_score);
+                    } else {    //Normal Game announcement
+                        // Announce "Game: P1"
+                        gameAnnouncement("P1");
+
+                        // Announce set score
+                        setScoreAnnouncement(current_set, player_1_set_3_score, player_2_set_3_score);
+                    }
+                }
+
+                // Link data together
+//                updateApplicationContext()
+
+                return;
+            } else if(player_1_points_won_this_game == 1) {
+                player_1_game_score_text_view.setText("15");
+            } else if(player_1_points_won_this_game == 2) {
+                player_1_game_score_text_view.setText("30");
+            } else if(player_1_points_won_this_game == 3) {
+                player_1_game_score_text_view.setText("40");
+            } else if(player_1_points_won_this_game - player_2_points_won_this_game == 0) {
+                player_1_game_score_text_view.setText("40");  //Deuce
+                player_2_game_score_text_view.setText("40");
+            } else if(player_1_points_won_this_game - player_2_points_won_this_game == 1) {
+                player_1_game_score_text_view.setText("AD"); //Advantage: Player 1
+            }
+
+            //Announce game score
+            obtainGameScore();
+
+            if(player_serving == 0) {
+                gameScoreAnnouncement(player_1_game_score_string, player_2_game_score_string);
+            } else {
+                gameScoreAnnouncement(player_2_game_score_string, player_1_game_score_string);
+            }
+
+            // Link data together
+//            updateApplicationContext();
+        } else {    // Tiebreaker
+            player_1_game_score_text_view.setText(Integer.toString(player_1_points_won_this_game));
+
+            if((player_1_points_won_this_game + player_2_points_won_this_game) % 2 == 1) {
+                changeServer();
+            }
+
+            //10-point tiebreak logic
+            if(ten_point_tiebreaker_format == "yes") { //10-point tiebreaker for final set
+                if(match_length == "best_of_1" || (match_length == "best_of_3" && current_set == 3)) {
+                    if(player_1_points_won_this_game >= 10 && player_1_points_won_this_game - player_2_points_won_this_game >= 2) {
+                        player_1_game_score_text_view.setText("0");
+                        player_2_game_score_text_view.setText("0");
+
+                        player_1_points_won_this_game = 0;
+                        player_2_points_won_this_game = 0;
+
+                        if(current_set == 1) {  //P1 wins 1st set 10-point tiebreak
+                            player_1_set_1_score += 1;
+                            player_1_set_1_score_text_view.setText(Integer.toString(player_1_set_1_score));
+                            set_winners[0] = 1;
+
+                            gameSetMatchAnnouncement("P1");
+
+                            // Link data together
+//                            updateApplicationContext()
+
+                            return;
+                        } else {    //P1 wins 3rd set 10-point tiebreak
+                            player_1_set_3_score += 1;
+                            player_1_set_3_score_text_view.setText(Integer.toString(player_1_set_3_score));
+                            set_winners[2] = 1;
+
+                            gameSetMatchAnnouncement("P1");
+
+                            // Link data together
+                            //updateApplicationContext();
+
+                            return;
+                        }
+                    } else {    // Still in the the tiebreak so call the score
+                        //Announce game score
+
+                        if(player_serving == 0) {
+                            gameScoreAnnouncement(Integer.toString(player_1_points_won_this_game), Integer.toString(player_2_points_won_this_game));
+                        } else {
+                            gameScoreAnnouncement(Integer.toString(player_2_points_won_this_game), Integer.toString(player_1_points_won_this_game));
+                        }
+
+                        // Link data together
+                        //updateApplicationContext();
+
+                        return;
+                    }
                 }
             }
+
+            if(player_1_points_won_this_game >= 7 && player_1_points_won_this_game - player_2_points_won_this_game >= 2) {
+
+                player_1_game_score_text_view.setText("0");
+                player_2_game_score_text_view.setText("0");
+
+                player_1_points_won_this_game = 0;
+                player_2_points_won_this_game = 0;
+
+                // Changes server to the player who received first to the start the tiebreaker
+                if(player_serving_to_start_tiebreak == player_serving) {
+                    changeServer();
+                }
+
+                //Update set score corresponding to set
+                if(current_set == 1) {
+
+                    current_set += 1;
+
+                    player_1_set_1_score += 1;
+                    player_1_set_1_score_text_view.setText(Integer.toString(player_1_set_1_score));
+
+                    set_winners[0] = 1;
+
+                    if(match_length == "best_of_1") {    //If best of 1 set, Player 1 wins the match
+                        gameSetMatchAnnouncement("P1");
+                    } else {
+                        // Announce "Set 1: P1"
+                        setAnnouncement("P1", "1");
+                        matchScoreAnnouncement();
+                    }
+                } else if (current_set == 2) {
+
+                    current_set += 1;
+
+                    player_1_set_2_score += 1;
+                    player_1_set_2_score_text_view.setText(Integer.toString(player_1_set_2_score));
+
+                    set_winners[1] = 1;
+
+                    if(set_winners[0] == set_winners[1]) {  //Player 1 wins
+                        gameSetMatchAnnouncement("P1");
+                    } else {
+                        // Announce "Set 2: P1"
+                        setAnnouncement("P1", "2");
+                        matchScoreAnnouncement();
+
+                        if(ten_point_tiebreaker_format == "yes") { //Start 10-point tiebreaker for the 3rd set
+                            is_tiebreak = true;
+                        }
+                    }
+                } else {    //Set 3
+
+                    current_set += 1;
+
+                    player_1_set_3_score += 1;
+                    player_1_set_3_score_text_view.setText(Integer.toString(player_1_set_3_score));
+
+                    set_winners[2] = 1;
+
+                    gameSetMatchAnnouncement("P1");
+                }
+
+                is_tiebreak = false;
+            } else {    // Still in the the tiebreak so call the score
+                //Announce game score
+                obtainGameScore();
+
+                if(player_serving == 0) {
+                    gameScoreAnnouncement(Integer.toString(player_1_points_won_this_game), Integer.toString(player_2_points_won_this_game));
+                } else {
+                    gameScoreAnnouncement(Integer.toString(player_2_points_won_this_game), Integer.toString(player_1_points_won_this_game));
+                }
+            }
+
+            // Link data together
+//            updateApplicationContext()
         }
+
+//        print(player_1_points_won_this_game)
+//        print(player_2_points_won_this_game)
     }
 
     public void onClickIncrementPlayerTwoScore(View view) {
