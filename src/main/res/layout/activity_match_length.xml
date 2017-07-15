@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Number of Sets:"
-            android:id="@+id/number_of_sets_text_view"
+            android:id="@+id/ten_point_tiebreak_text_view"
             android:textSize="15sp"
             android:textColor="#ffffff"
             android:gravity="center"
@@ -39,7 +39,7 @@
             android:textColor="#ffffff"
             android:gravity="center"
             android:textAlignment="gravity"
-            android:layout_below="@+id/number_of_sets_text_view"
+            android:layout_below="@+id/ten_point_tiebreak_text_view"
             android:layout_centerHorizontal="true"
             android:onClick="onClickBestOfOneButton" />
 

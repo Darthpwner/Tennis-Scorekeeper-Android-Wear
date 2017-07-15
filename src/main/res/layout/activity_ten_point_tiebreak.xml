@@ -1,46 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="matthewallenlinsoftware.tennisscorekeeperapp.TenPointTiebreakActivity"
     tools:deviceIds="wear"
-    android:background="#000000">
+    android:background="#000000"
+    android:padding="15dp">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10-pt tiebreak for final set?"
-        android:id="@+id/ten_point_tiebreak_text_view"
-        android:layout_gravity="center_horizontal"
-        android:textSize="10sp"
-        android:layout_marginTop="22dp" />
+        android:padding="5dp"
+        app:layout_box="all">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Yes"
-        android:id="@+id/yes_button"
-        android:layout_gravity="center_horizontal"
-        android:background="#333"
-        android:onClick="onClickYesButton"
-        android:layout_marginTop="5dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ten_point_tiebreak_text_view"
+            android:textSize="10sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5px"
+            android:layout_marginBottom="5px"
+            android:text="10-pt tiebreak for final set?" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="75dp"
-        android:id="@+id/tennis_court_image_view"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/tennis_court" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Yes"
+            android:id="@+id/yes_button"
+            android:background="#333"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:layout_below="@+id/ten_point_tiebreak_text_view"
+            android:layout_centerHorizontal="true"
+            android:onClick="onClickYesButton" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="No"
-        android:id="@+id/no_button"
-        android:layout_gravity="center_horizontal"
-        android:background="#333"
-        android:onClick="onClickNoButton" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:id="@+id/tennis_court_image_view"
+            android:src="@drawable/tennis_court"
+            android:layout_below="@id/yes_button"
+            android:paddingTop="0dp"
+            android:layout_centerHorizontal="true" />
 
-</LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="No"
+            android:id="@+id/no_button"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:layout_below="@+id/tennis_court_image_view"
+            android:layout_centerHorizontal="true"
+            android:onClick="onClickNoButton"
+            android:background="#333" />
+
+
+    </RelativeLayout>
+
+</android.support.wearable.view.BoxInsetLayout>
+
+
