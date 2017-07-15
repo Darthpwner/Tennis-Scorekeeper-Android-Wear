@@ -114,7 +114,7 @@ public class ScoresActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scoresz);
+        setContentView(R.layout.activity_scores);
 
         grabTenPointTiebreakActivityData();
 
