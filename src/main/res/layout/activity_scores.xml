@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="matthewallenlinsoftware.tennisscorekeeperapp.ScoresActivity"
-    tools:deviceIds="wear_square"
+    tools:deviceIds="wear"
     android:background="#000000">
 
     <LinearLayout
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="Set Score:"
         android:id="@+id/set_score_text_view"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_gravity="center_horizontal"
         android:textColor="#ffffff" />
 
@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:text="Game Score:"
         android:id="@+id/game_score_text_view"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_gravity="center_horizontal"
         android:textColor="#ffffff" />
 
@@ -266,7 +266,7 @@
         android:layout_height="wrap_content"
         android:text="Announcement"
         android:id="@+id/announcement_text_view"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_gravity="center_horizontal"
         android:visibility="invisible"
         android:textColor="#ffffff" />
