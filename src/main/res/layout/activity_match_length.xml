@@ -7,11 +7,14 @@
     android:layout_height="match_parent"
     tools:context="matthewallenlinsoftware.tennisscorekeeperapp.MatchLengthActivity"
     tools:deviceIds="wear"
-    android:background="#000000">
+    android:background="#000000"
+    android:padding="15dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_box="all">
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +30,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="Best of 1"
             android:id="@+id/best_of_one_button"
             android:background="#333"
@@ -48,7 +51,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="Best of 3"
             android:id="@+id/best_of_three_button"
             android:textColor="#ffffff"
@@ -62,4 +65,5 @@
     </RelativeLayout>
 
 </android.support.wearable.view.BoxInsetLayout>
+
 
