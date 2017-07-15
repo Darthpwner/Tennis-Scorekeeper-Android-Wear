@@ -268,7 +268,7 @@
         android:id="@+id/announcement_text_view"
         android:textSize="15sp"
         android:layout_gravity="center_horizontal"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:textColor="#ffffff" />
 
 </LinearLayout>
