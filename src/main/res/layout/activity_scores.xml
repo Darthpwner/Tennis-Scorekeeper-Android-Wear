@@ -15,7 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/reset_home_linear_layout"
         android:gravity="center_horizontal"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="15dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -268,7 +268,7 @@
         android:id="@+id/announcement_text_view"
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:textColor="#ffffff" />
 
 </LinearLayout>
