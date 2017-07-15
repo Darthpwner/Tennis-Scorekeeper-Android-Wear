@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="matthewallenlinsoftware.tennisscorekeeperapp.TenPointTiebreakActivity"
-    tools:deviceIds="wear_square"
+    tools:deviceIds="wear"
     android:background="#000000">
 
     <TextView
@@ -14,16 +14,18 @@
         android:text="10-pt tiebreak for final set?"
         android:id="@+id/ten_point_tiebreak_text_view"
         android:layout_gravity="center_horizontal"
-        android:textSize="14sp" />
+        android:textSize="10sp"
+        android:layout_marginTop="22dp" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:text="Yes"
         android:id="@+id/yes_button"
         android:layout_gravity="center_horizontal"
         android:background="#333"
-        android:onClick="onClickYesButton" />
+        android:onClick="onClickYesButton"
+        android:layout_marginTop="5dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -34,7 +36,7 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:text="No"
         android:id="@+id/no_button"
         android:layout_gravity="center_horizontal"

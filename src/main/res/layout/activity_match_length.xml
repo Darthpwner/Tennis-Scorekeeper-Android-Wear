@@ -26,7 +26,9 @@
             android:gravity="center"
             android:textAlignment="gravity"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5px"
+            android:layout_marginBottom="5px" />
 
         <Button
             android:layout_width="wrap_content"
@@ -47,7 +49,8 @@
             android:id="@+id/tennis_court_image_view"
             android:src="@drawable/tennis_court"
             android:layout_below="@id/best_of_one_button"
-            android:paddingTop="0dp" />
+            android:paddingTop="0dp"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:layout_width="wrap_content"

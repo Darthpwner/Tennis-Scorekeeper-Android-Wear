@@ -10,11 +10,12 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/reset_home_linear_layout"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginTop="25dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -267,7 +268,7 @@
         android:id="@+id/announcement_text_view"
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:textColor="#ffffff" />
 
 </LinearLayout>
