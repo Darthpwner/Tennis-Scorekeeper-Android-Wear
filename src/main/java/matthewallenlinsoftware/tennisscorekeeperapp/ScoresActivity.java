@@ -14,9 +14,27 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
+
 import java.util.Locale;
 
-public class ScoresActivity extends Activity {
+public class ScoresActivity extends Activity implements DataApi.DataListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
+
+    private GoogleApiClient mGoogleApiClient;
+
     // Speech to text
     private TextToSpeech tts;
 
@@ -115,6 +133,12 @@ public class ScoresActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
 
         grabTenPointTiebreakActivityData();
 
@@ -1176,5 +1200,73 @@ public class ScoresActivity extends Activity {
         preventButtonSelection();
         delayGameSetMatch();
     }
+
+    // Syncing data between mobile and wear app
+    // Create data map and put data in it
+    private void initializeApplicationContext() {
+        PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/applicationDict");
+
+        // Create key-value pairs
+        putDataMapRequest.getDataMap().putInt("player_1_set_1_score_label", player_1_set_1_score);
+        putDataMapRequest.getDataMap().putInt("player_2_set_1_score_label", player_2_set_1_score);
+        putDataMapRequest.getDataMap().putInt("player_1_set_2_score_label", player_1_set_2_score);
+        putDataMapRequest.getDataMap().putInt("player_2_set_2_score_label", player_2_set_2_score);
+        putDataMapRequest.getDataMap().putInt("player_1_set_3_score_label", player_1_set_3_score);
+        putDataMapRequest.getDataMap().putInt("player_2_set_3_score_label", player_2_set_3_score);
+        putDataMapRequest.getDataMap().putInt("player_1_game_score_label", player_1_points_won_this_game);
+        putDataMapRequest.getDataMap().putInt("player_2_game_score_label", player_2_points_won_this_game);
+        putDataMapRequest.getDataMap().putInt("player_serving", player_serving);
+        putDataMapRequest.getDataMap().putInt("player_won", player_won);
+        putDataMapRequest.getDataMap().putBoolean("is_tiebreak", is_tiebreak);
+        putDataMapRequest.getDataMap().putString("match_length", match_length);
+
+        PutDataRequest putDataReq = putDataMapRequest.asPutDataRequest();
+        PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
+    }
+
+    // Google API methods
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Wearable.DataApi.addListener(mGoogleApiClient, this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Wearable.DataApi.removeListener(mGoogleApiClient, this);
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        System.out.println("cause: " + cause);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        System.out.println("result: " + result);
+    }
+
+    @Override
+    public void onDataChanged(DataEventBuffer dataEvents) {
+        for (DataEvent event : dataEvents) {
+            if (event.getType() == DataEvent.TYPE_CHANGED) {
+                // DataItem changed
+                DataItem item = event.getDataItem();
+                if (item.getUri().getPath().compareTo("/applicationDict") == 0) {
+                    DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+                }
+            } else if (event.getType() == DataEvent.TYPE_DELETED) {
+                // DataItem deleted
+            }
+        }
+    }
+
 }
 
