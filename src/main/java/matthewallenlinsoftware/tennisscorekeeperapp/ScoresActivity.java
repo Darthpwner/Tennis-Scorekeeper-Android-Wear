@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
@@ -33,7 +34,9 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
+    // Transferring data to mobile app
     private GoogleApiClient mGoogleApiClient;
+    private PutDataMapRequest putDataMapRequest;
 
     // Speech to text
     private TextToSpeech tts;
@@ -134,12 +137,6 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Wearable.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-
         grabTenPointTiebreakActivityData();
 
         // Initialize widgets
@@ -200,6 +197,16 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
 
         // Set up initial Activity
         initialize();
+
+        // Set up data transfer to the mobile app
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        mGoogleApiClient.connect();
+
+        initializeApplicationContext();
     }
 
     // Stops the TextToSpeech service when a user closes the app
@@ -1204,7 +1211,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
     // Syncing data between mobile and wear app
     // Create data map and put data in it
     private void initializeApplicationContext() {
-        PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/applicationDict");
+        putDataMapRequest = PutDataMapRequest.create("/applicationDict");
 
         // Create key-value pairs
         putDataMapRequest.getDataMap().putInt("player_1_set_1_score_label", player_1_set_1_score);
@@ -1222,6 +1229,14 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
 
         PutDataRequest putDataReq = putDataMapRequest.asPutDataRequest();
         PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
+
+        // Debugging the return value of pendingResult
+        pendingResult.setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+            @Override
+            public void onResult(DataApi.DataItemResult dataItemResult) {
+                Log.e("WEAR APP", "APPLICATION Result has come");
+            }
+        });
     }
 
     // Google API methods
@@ -1261,12 +1276,27 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                 DataItem item = event.getDataItem();
                 if (item.getUri().getPath().compareTo("/applicationDict") == 0) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+
+                    // Update values corresponding to the right key
+                    // Create key-value pairs
+                    putDataMapRequest.getDataMap().putInt("player_1_set_1_score_label", player_1_set_1_score);
+                    putDataMapRequest.getDataMap().putInt("player_2_set_1_score_label", player_2_set_1_score);
+                    putDataMapRequest.getDataMap().putInt("player_1_set_2_score_label", player_1_set_2_score);
+                    putDataMapRequest.getDataMap().putInt("player_2_set_2_score_label", player_2_set_2_score);
+                    putDataMapRequest.getDataMap().putInt("player_1_set_3_score_label", player_1_set_3_score);
+                    putDataMapRequest.getDataMap().putInt("player_2_set_3_score_label", player_2_set_3_score);
+                    putDataMapRequest.getDataMap().putInt("player_1_game_score_label", player_1_points_won_this_game);
+                    putDataMapRequest.getDataMap().putInt("player_2_game_score_label", player_2_points_won_this_game);
+                    putDataMapRequest.getDataMap().putInt("player_serving", player_serving);
+                    putDataMapRequest.getDataMap().putInt("player_won", player_won);
+                    putDataMapRequest.getDataMap().putBoolean("is_tiebreak", is_tiebreak);
+                    putDataMapRequest.getDataMap().putString("match_length", match_length);
+
                 }
             } else if (event.getType() == DataEvent.TYPE_DELETED) {
                 // DataItem deleted
             }
         }
     }
-
 }
 
