@@ -19,11 +19,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.DataApi;
-import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
-import com.google.android.gms.wearable.DataItem;
-import com.google.android.gms.wearable.DataMap;
-import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
@@ -257,6 +253,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
     // onClick Actions
     public void onClickIncrementPlayerOneScore(View view) {
         System.out.println("P1");
+        System.out.println("player_1_game_score: " + putDataMapRequest.getDataMap().getInt("player_1_game_score_label"));
 
         String toSpeak = "P1";
         speak(toSpeak);
@@ -583,6 +580,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
 
     public void onClickIncrementPlayerTwoScore(View view) {
         System.out.println("P2");
+        System.out.println("player_1_game_score: " + putDataMapRequest.getDataMap().getInt("player_1_game_score_label"));
 
         player_2_points_won_this_game += 1;
 
@@ -1230,6 +1228,8 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
         PutDataRequest putDataReq = putDataMapRequest.asPutDataRequest();
         PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
 
+        System.out.println("player_1_game_score: " + putDataMapRequest.getDataMap().getInt("player_1_game_score_label"));
+
         // Debugging the return value of pendingResult
         pendingResult.setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
             @Override
@@ -1249,6 +1249,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
     @Override
     public void onConnected(Bundle bundle) {
         Wearable.DataApi.addListener(mGoogleApiClient, this);
+        System.out.println("onConnected for wear called!");
     }
 
     @Override
@@ -1270,33 +1271,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
-        for (DataEvent event : dataEvents) {
-            if (event.getType() == DataEvent.TYPE_CHANGED) {
-                // DataItem changed
-                DataItem item = event.getDataItem();
-                if (item.getUri().getPath().compareTo("/applicationDict") == 0) {
-                    DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-
-                    // Update values corresponding to the right key
-                    // Create key-value pairs
-                    putDataMapRequest.getDataMap().putInt("player_1_set_1_score_label", player_1_set_1_score);
-                    putDataMapRequest.getDataMap().putInt("player_2_set_1_score_label", player_2_set_1_score);
-                    putDataMapRequest.getDataMap().putInt("player_1_set_2_score_label", player_1_set_2_score);
-                    putDataMapRequest.getDataMap().putInt("player_2_set_2_score_label", player_2_set_2_score);
-                    putDataMapRequest.getDataMap().putInt("player_1_set_3_score_label", player_1_set_3_score);
-                    putDataMapRequest.getDataMap().putInt("player_2_set_3_score_label", player_2_set_3_score);
-                    putDataMapRequest.getDataMap().putInt("player_1_game_score_label", player_1_points_won_this_game);
-                    putDataMapRequest.getDataMap().putInt("player_2_game_score_label", player_2_points_won_this_game);
-                    putDataMapRequest.getDataMap().putInt("player_serving", player_serving);
-                    putDataMapRequest.getDataMap().putInt("player_won", player_won);
-                    putDataMapRequest.getDataMap().putBoolean("is_tiebreak", is_tiebreak);
-                    putDataMapRequest.getDataMap().putString("match_length", match_length);
-
-                }
-            } else if (event.getType() == DataEvent.TYPE_DELETED) {
-                // DataItem deleted
-            }
-        }
+        // Mobile app does not change data yet
     }
 }
 
