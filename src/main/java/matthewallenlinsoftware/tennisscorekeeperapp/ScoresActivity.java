@@ -191,9 +191,6 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
             }
         });
 
-        // Set up initial Activity
-        initialize();
-
         // Set up data transfer to the mobile app
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
@@ -202,7 +199,9 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                 .build();
         mGoogleApiClient.connect();
 
-        initializeApplicationContext();
+        // Set up initial Activity
+        putDataMapRequest = PutDataMapRequest.create("/applicationDict");
+        initialize();
     }
 
     // Stops the TextToSpeech service when a user closes the app
@@ -245,7 +244,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
         }
 
         // Link data together
-        //updateApplicationContext();
+        updateApplicationContext();
 
 //        print("Activated scores")
     }
@@ -412,7 +411,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                 }
 
                 // Link data together
-//                updateApplicationContext()
+                updateApplicationContext();
 
                 return;
             } else if(player_1_points_won_this_game == 1) {
@@ -438,7 +437,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
             }
 
             // Link data together
-//            updateApplicationContext();
+            updateApplicationContext();
         } else {    // Tiebreaker
             player_1_game_score_text_view.setText(Integer.toString(player_1_points_won_this_game));
 
@@ -464,7 +463,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                             gameSetMatchAnnouncement("P1");
 
                             // Link data together
-//                            updateApplicationContext()
+                            updateApplicationContext();
 
                             return;
                         } else {    //P1 wins 3rd set 10-point tiebreak
@@ -475,7 +474,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                             gameSetMatchAnnouncement("P1");
 
                             // Link data together
-                            //updateApplicationContext();
+                            updateApplicationContext();
 
                             return;
                         }
@@ -489,7 +488,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                         }
 
                         // Link data together
-                        //updateApplicationContext();
+                        updateApplicationContext();
 
                         return;
                     }
@@ -571,7 +570,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
             }
 
             // Link data together
-//            updateApplicationContext()
+            updateApplicationContext();
         }
 
 //        print(player_1_points_won_this_game)
@@ -740,7 +739,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                 }
 
                 // Link data together
-                //updateApplicationContext();
+                updateApplicationContext();
 
                 return;
             } else if(player_2_points_won_this_game == 1) {
@@ -766,7 +765,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
             }
 
             // Link data together
-            //updateApplicationContext()
+            updateApplicationContext();
         } else {    //Tiebreaker
             player_2_game_score_text_view.setText(Integer.toString(player_2_points_won_this_game));
 
@@ -792,7 +791,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                             gameSetMatchAnnouncement("P2");
 
                             // Link data together
-                            //updateApplicationContext();
+                            updateApplicationContext();
 
                             return;
                         } else {    //P2 wins 3rd set 10-point tiebreak
@@ -803,7 +802,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                             gameSetMatchAnnouncement("P2");
 
                             // Link data together
-                            //updateApplicationContext();
+                            updateApplicationContext();
 
                             return;
                         }
@@ -817,7 +816,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                         }
 
                         // Link data together
-                        //updateApplicationContext();
+                        updateApplicationContext();
 
                         return;
                     }
@@ -898,7 +897,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
             }
 
             // Link data together
-            //updateApplicationContext();
+            updateApplicationContext();
         }
 
 //        print(player_1_points_won_this_game)
@@ -1208,9 +1207,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
 
     // Syncing data between mobile and wear app
     // Create data map and put data in it
-    private void initializeApplicationContext() {
-        putDataMapRequest = PutDataMapRequest.create("/applicationDict");
-
+    private void updateApplicationContext() {
         // Create key-value pairs
         putDataMapRequest.getDataMap().putInt("player_1_set_1_score_label", player_1_set_1_score);
         putDataMapRequest.getDataMap().putInt("player_2_set_1_score_label", player_2_set_1_score);
