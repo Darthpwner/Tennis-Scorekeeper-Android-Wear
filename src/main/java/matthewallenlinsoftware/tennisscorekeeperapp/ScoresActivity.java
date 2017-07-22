@@ -204,6 +204,8 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
         initialize();
     }
 
+    
+
     // Stops the TextToSpeech service when a user closes the app
     @Override
     public void onDestroy() {
@@ -242,6 +244,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                 is_tiebreak = true;
             }
         }
+
 
         // Link data together
         updateApplicationContext();
