@@ -30,15 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="layout.ten_point_tiebreak_activity.TenPointTiebreakActivity"
-            android:label="@string/title_activity_ten_point_tiebreak">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".TenPointTiebreakActivity"
             android:label="@string/title_activity_ten_point_tiebreak">

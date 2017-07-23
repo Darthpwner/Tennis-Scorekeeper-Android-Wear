@@ -36,6 +36,7 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
 
     // Speech to text
     private TextToSpeech tts;
+    private String toSpeak = "";
 
     // Data from previous Activities
     String match_length, ten_point_tiebreaker_format;
@@ -183,8 +184,6 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
                     }
                     tts.setSpeechRate((float) 0.3);
 
-                    speak("Hello");
-
                 } else {
                     Log.e("TTS", "Initilization Failed!");
                 }
@@ -257,8 +256,8 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
         System.out.println("P1");
         System.out.println("player_1_game_score: " + putDataMapRequest.getDataMap().getInt("player_1_game_score_label"));
 
-        String toSpeak = "P1";
-        speak(toSpeak);
+//        String toSpeak = "P1";
+//        speak(toSpeak);
 
         player_1_points_won_this_game += 1;
 
@@ -1079,45 +1078,45 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
     public void gameScoreAnnouncement(String server_score, String receiver_score) {
         if(!is_tiebreak) {
             if(server_score.equals("40") && receiver_score.equals("40")) {
-//                myUtterance = AVSpeechUtterance(string: "Deuce")
+                toSpeak = "Deuce";
             } else if(server_score.equals("AD")) {
-//                myUtterance = AVSpeechUtterance(string: "Ad In")
+                toSpeak = "Ad In";
             } else if(receiver_score.equals("AD")) {
-//                myUtterance = AVSpeechUtterance(string: "Ad Out")
+                toSpeak = "Ad Out";
             } else if(server_score.equals(receiver_score)) { //<Server score>-All
-//                myUtterance = AVSpeechUtterance(string: "\(server_score)-All")
+                toSpeak = server_score + "-All";
             } else { // "<Server score>-<Receiver score>"
-//                myUtterance = AVSpeechUtterance(string: "\(server_score) \(receiver_score)")
+                toSpeak = server_score + " " + receiver_score;
             }
         }  else {   //Announce tiebreak score
             if(server_score == receiver_score) { //<Server score>-All
-//                myUtterance = AVSpeechUtterance(string: "\(server_score)-All")
+                toSpeak = server_score + "-All";
             } else { // "<Server score>-<Receiver score>"
                 if(player_serving == 0) {   //P1 serving
-//                    myUtterance = AVSpeechUtterance(string: "\(server_score) \(receiver_score), P1")
+                    toSpeak = server_score + " " + receiver_score + ", P1";
                 } else {    //P2 serving
-//                    myUtterance = AVSpeechUtterance(string: "\(server_score) \(receiver_score), P2")
+                    toSpeak = server_score + " " + receiver_score + ", P2";
                 }
             }
         }
 
-//        synth.speak(myUtterance)
-//
+        speak(toSpeak);
+
         preventButtonSelection();
         delayGameScoreAnnouncement();
     }
 
     public void setScoreAnnouncement(int current_set, int player_1_set_score, int player_2_set_score) {
         if(player_1_set_score == player_2_set_score) {
-//            myUtterance = AVSpeechUtterance(string: "\(player_1_set_score)-All. Set \(current_set)")
+            toSpeak = player_1_set_score + "-All. Set " + current_set;
         } else if(player_1_set_score > player_2_set_score) {
-//            myUtterance = AVSpeechUtterance(string: "P1 leeds \(player_1_set_score) \(player_2_set_score). Set \(current_set)")
+            toSpeak = "P1 leeds " + player_1_set_score + " " + player_2_set_score + ". Set " + current_set;
         } else {    //P2 leads P1 in this set
-//            myUtterance = AVSpeechUtterance(string: "P2 leeds \(player_2_set_score) \(player_1_set_score). Set \(current_set)")
+            toSpeak = "P2 leeds " + player_2_set_score + " " + player_1_set_score + ". Set " + current_set;
         }
 
-//        synth.speak(myUtterance)
-//
+        speak(toSpeak);
+
         preventButtonSelection();
         delayAnnouncement();
     }
@@ -1125,16 +1124,16 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
     public void matchScoreAnnouncement() {
         if(current_set == 2) {
             if(set_winners[0] == 1) {   // P1 won the first set
-//                myUtterance = AVSpeechUtterance(string: "P1 leeds 1 set to love")
+                toSpeak = "P1 leeds 1 set to love";
             } else {    // P2 won the first set
-//                myUtterance = AVSpeechUtterance(string: "P2 leeds 1 set to love")
+                toSpeak = "P2 leeds 1 set to love";
             }
         } else {    //3rd set announcement
-//            myUtterance = AVSpeechUtterance(string: "1 set all")
+            toSpeak = "1 set all";
         }
 
-//        synth.speak(myUtterance)
-//
+        speak(toSpeak);
+
         preventButtonSelection();
         delayAnnouncement();
     }
@@ -1144,9 +1143,9 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
         announcement_text_view.setVisibility(View.VISIBLE);
         announcement_text_view.setText("Game: " + player);
 
-//        myUtterance = AVSpeechUtterance(string: "Game: \(player)")
-//        synth.speak(myUtterance)
-//
+        toSpeak = "Game: " + player;
+        speak(toSpeak);
+
         preventButtonSelection();
 
         // This line could possibly be deprecated. Need to test
@@ -1157,9 +1156,9 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
         announcement_text_view.setVisibility(View.VISIBLE);
         announcement_text_view.setText("Set " + set_number + ": " + player);
 
-//        myUtterance = AVSpeechUtterance(string: "Game and Set \(set_number): \(player)")
-//        synth.speak(myUtterance)
-//
+        toSpeak = "Game and Set " + set_number + ": " + player;
+        speak(toSpeak);
+
         preventButtonSelection();
         delayAnnouncement();
     }
@@ -1170,27 +1169,27 @@ public class ScoresActivity extends Activity implements DataApi.DataListener,
 
         if(match_length.equals("best_of_1")) {    //Best of 1 set format
             if(player.equals("P1")) {    //P1 wins
-//                myUtterance = AVSpeechUtterance(string: "Game, Set, Match: \(player). \(player_1_set_1_score) \(player_2_set_1_score)")
+                toSpeak = "Game, Set, Match: " + player + ". " + player_1_set_1_score + " " + player_2_set_1_score;
             } else {    //P2 wins
-//                myUtterance = AVSpeechUtterance(string: "Game, Set, Match: \(player). \(player_2_set_1_score) \(player_1_set_1_score)")
+                toSpeak = "Game, Set, Match: " + player + ". " + player_2_set_1_score + " " + player_1_set_1_score;
             }
         } else {    //Best of 3 set format
             if(player.equals("P1")) {
                 if(set_winners[0] == set_winners[1]) {  //P1 won in straight sets
-//                    myUtterance = AVSpeechUtterance(string: "Game, Set, Match: \(player). \(player_1_set_1_score) \(player_2_set_1_score). \(player_1_set_2_score) \(player_2_set_2_score)")
+                    toSpeak = "Game, Set, Match: " + player + ". " + player_1_set_1_score + " " + player_2_set_1_score + ". " + player_1_set_2_score + " " + player_2_set_2_score;
                 } else {    //P1 won in 3 sets
-//                    myUtterance = AVSpeechUtterance(string: "Game, Set, Match: \(player). \(player_1_set_1_score) \(player_2_set_1_score). \(player_1_set_2_score) \(player_2_set_2_score). \(player_1_set_3_score) \(player_2_set_3_score)")
+                    toSpeak = "Game, Set, Match: " + player + ". " + player_1_set_1_score + " " + player_2_set_1_score + ". " + player_1_set_2_score + " " + player_2_set_2_score + ". " + player_1_set_3_score + " " + player_2_set_3_score;
                 }
             } else {
                 if(set_winners[0] == set_winners[1]) {  //P2 won in straight sets
-//                    myUtterance = AVSpeechUtterance(string: "Game, Set, Match: \(player). \(player_2_set_1_score) \(player_1_set_1_score). \(player_2_set_2_score) \(player_1_set_2_score)")
+                    toSpeak = "Game, Set, Match: " + player + ". " + player_2_set_1_score + " " + player_1_set_1_score + ". " + player_2_set_2_score + " " + player_1_set_2_score;
                 } else {    //P1 won in 3 sets
-//                    myUtterance = AVSpeechUtterance(string: "Game, Set, Match: \(player). \(player_2_set_1_score) \(player_1_set_1_score). \(player_2_set_2_score) \(player_1_set_2_score). \(player_2_set_3_score) \(player_1_set_3_score)")
+                    toSpeak = "Game, Set, Match: " + player + ". " + player_2_set_1_score + " " + player_1_set_1_score + ". " + player_2_set_2_score + " " + player_1_set_2_score + ". " + player_2_set_3_score + " " + player_1_set_3_score;
                 }
             }
         }
 
-//        synth.speak(myUtterance)
+        speak(toSpeak);
 
         // Change color for the winner
         if(player.equals("P1")) {
